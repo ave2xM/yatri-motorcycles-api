@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import io from 'socket.io-client';
 import Battery from './components/battery';
 import './css/style.css';
+import './css/tailwind.css';
 
 export default () => {
   const [socket, setSocket] = useState(null);
@@ -21,5 +22,11 @@ export default () => {
 
   if (loader) return <h3>Loading...</h3>;
 
-  return <Battery socket={socket} />;
+  return (
+    <div id="app" className="bg-black" style={{ minHeight: '100vh' }}>
+      <div className="container mx-auto p-4">
+        <Battery socket={socket} />
+      </div>
+    </div>
+  );
 };

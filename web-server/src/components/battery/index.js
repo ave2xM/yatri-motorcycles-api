@@ -1,9 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { getAllBatteries } from '../../services/batteryService';
-import Battery from './battery';
+import ResetAvailability from './ResetAvailability';
+import NotificationBox from '../helpers/NotificationBox';
+
+import Battery from './Battery';
 
 export default ({ socket }) => {
   const [batteries, setBatteries] = useState(null);
+  const [notification, setNotification] = useState(null);
+
   const ref = useRef(batteries); // Make a ref and give it the count
 
   // Keeps the state and ref equal
@@ -15,14 +20,19 @@ export default ({ socket }) => {
 
   function pollBatteryStatus() {
     socket.on('BATTERY_RESERVE_SUCCESS', data => {
-      const updatedBattery = { [data._id]: { ...data } };
-      if (ref.current[data._id])
-        setBatteries({ ...ref.current, ...updatedBattery });
+      if (ref.current[data._id]) {
+        let newBatteryList = { ...ref.current };
+        newBatteryList[data._id] = {
+          ...newBatteryList[data._id],
+          available: false,
+        };
+        updateBatteryList(newBatteryList);
+      }
     });
   }
 
   useEffect(() => {
-    getAllBatteries('/api/v1/batteries').then(({ data }) => {
+    getAllBatteries().then(({ data }) => {
       const batteryArr = data.data.data;
 
       const arrayToObj = batteryArr.reduce((obj, item) => {
@@ -41,15 +51,35 @@ export default ({ socket }) => {
 
   if (!batteries) return <h3>Loading...</h3>;
 
+  function handleNotification(notifier) {
+    setNotification(notifier);
+    setTimeout(() => {
+      setNotification(null);
+    }, 3000);
+  }
+
   function renderBatteryList() {
-    return Object.values(batteries).map(b => (
-      <Battery key={b._id} socket={socket} battery={b} />
-    ));
+    return (
+      <div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 -mx-3">
+          {Object.values(batteries).map(b => (
+            <Battery
+              key={b._id}
+              socket={socket}
+              battery={b}
+              handleNotification={handleNotification}
+            />
+          ))}
+        </div>
+        <ResetAvailability />
+        <NotificationBox notification={notification} />
+      </div>
+    );
   }
 
   return (
     <div>
-      <h1 className="primary-text">
+      <h1 className="primary-text text-xl font-extrabold my-5">
         Going for a trip? Reserve Yatri batteries.
       </h1>
       {renderBatteryList()}

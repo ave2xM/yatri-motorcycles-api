@@ -53,3 +53,11 @@ exports.addBattery = catchAsync(async (req, res, next) => {
     },
   });
 });
+
+exports.resetAvaibility = catchAsync(async (req, res, next) => {
+  await Battery.updateMany({}, { available: true });
+  res.status(204).json({
+    status: 'success',
+    data: null,
+  });
+});

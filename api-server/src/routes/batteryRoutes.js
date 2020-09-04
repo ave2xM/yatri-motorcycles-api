@@ -8,8 +8,10 @@ router
   .get(batteryController.getAllBatteries)
   .post(batteryController.addBattery);
 
+router.route('/all').post(batteryController.resetAvaibility);
+
 router
-  .route('/:id')
+  .route('/reserve/:id')
   .post(batteryController.checkAvaibility, batteryController.reserveBattery);
 
 module.exports = router;

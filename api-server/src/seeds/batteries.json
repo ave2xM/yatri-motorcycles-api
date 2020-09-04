@@ -34,5 +34,13 @@
   {
     "available": true,
     "location": "Chabahil - 14, Kathmandu"
+  },
+  {
+    "available": true,
+    "location": "Lake side - 02, Pokhara"
+  },
+  {
+    "available": false,
+    "location": "Baluwatar - 07, Kathmandu"
   }
 ]
