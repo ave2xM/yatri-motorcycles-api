@@ -1,0 +1,8 @@
+version: '3'
+services:
+  web:
+    image: manjiltamang/yatri:v1
+    restart: always
+    build: . #look into a current directory for a Dockerfile and use it to build the image
+    ports:
+      - '5000:5000'

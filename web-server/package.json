@@ -15,7 +15,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts build && mv build ../api-server/public",
     "test": "react-scripts test",
     "build:tailwind": "tailwind build tailwind/style.css -o src/css/tailwind.css",
     "eject": "react-scripts eject"
