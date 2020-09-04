@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import io from 'socket.io-client';
 import Battery from './components/battery';
-import './css/style.css';
 import './css/tailwind.css';
 
 export default () => {

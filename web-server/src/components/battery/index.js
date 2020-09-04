@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { getAllBatteries } from '../../services/batteryService';
 import ResetAvailability from './ResetAvailability';
 import NotificationBox from '../helpers/NotificationBox';
@@ -18,18 +18,21 @@ export default ({ socket }) => {
     setBatteries(newBatteryList);
   }
 
-  function pollBatteryStatus() {
-    socket.on('BATTERY_RESERVE_SUCCESS', data => {
-      if (ref.current[data._id]) {
-        let newBatteryList = { ...ref.current };
-        newBatteryList[data._id] = {
-          ...newBatteryList[data._id],
-          available: false,
-        };
-        updateBatteryList(newBatteryList);
-      }
-    });
-  }
+  const pollBatteryStatus = useCallback(
+    function () {
+      socket.on('BATTERY_RESERVE_SUCCESS', data => {
+        if (ref.current[data._id]) {
+          let newBatteryList = { ...ref.current };
+          newBatteryList[data._id] = {
+            ...newBatteryList[data._id],
+            available: false,
+          };
+          updateBatteryList(newBatteryList);
+        }
+      });
+    },
+    [socket]
+  );
 
   useEffect(() => {
     getAllBatteries().then(({ data }) => {
@@ -47,7 +50,7 @@ export default ({ socket }) => {
     return () => {
       socket.removeAllListeners('BATTERY_RESERVE_SUCCESS');
     };
-  }, []);
+  }, [pollBatteryStatus, socket]);
 
   if (!batteries) return <h3>Loading...</h3>;
 

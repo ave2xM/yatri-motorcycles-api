@@ -8,7 +8,8 @@
     "dev": "nodemon src/server.js",
     "seed:import": "node src/seeds --import",
     "seed:delete": "node src/seeds --delete",
-    "test": "jest"
+    "test": "jest",
+    "lint": "eslint ."
   },
   "keywords": [],
   "author": "",

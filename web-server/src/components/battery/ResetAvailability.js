@@ -5,15 +5,10 @@ import { resetBatteryAvaibility } from '../../services/batteryService';
 export default () => {
   const [submitting, setSubmitting] = useState(false);
 
-  function handleAvaibilityReset() {
+  async function handleAvaibilityReset() {
     setSubmitting(true);
-    resetBatteryAvaibility()
-      .then(() => {
-        setSubmitting(false);
-      })
-      .catch(() => {
-        setSubmitting(false);
-      });
+    await resetBatteryAvaibility();
+    window.location.reload();
   }
 
   return (
