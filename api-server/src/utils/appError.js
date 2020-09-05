@@ -6,7 +6,6 @@ class AppError extends Error {
     // setting a flag so that we can know the error is created using this class
     this.isOperational = true;
 
-    // A non-standard V8 function that creates the stack property on an Error instance.
     Error.captureStackTrace(this, this.constructor);
   }
 }

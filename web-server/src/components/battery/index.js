@@ -68,7 +68,6 @@ export default ({ socket }) => {
           {Object.values(batteries).map(b => (
             <Battery
               key={b._id}
-              socket={socket}
               battery={b}
               handleNotification={handleNotification}
             />

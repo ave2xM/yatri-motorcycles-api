@@ -30,9 +30,8 @@ const sendErrProduction = (err, res) => {
 
     // Programming error or other unknown error
   } else {
-    // 1) Log error
     console.error('ERROR 💥', err);
-    // 2) Send generic message
+    // Send generic message
     res.status(500).json({
       status: 'Internal server error',
     });
