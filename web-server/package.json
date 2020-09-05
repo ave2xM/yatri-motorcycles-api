@@ -16,6 +16,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build && mv build ../api-server/public",
+    "build:heroku": "REACT_APP_API_SERVER=https://yatrimotors.herokuapp.com react-scripts build && mv build ../api-server/public",
     "test": "react-scripts test",
     "build:tailwind": "tailwind build tailwind/style.css -o src/css/tailwind.css",
     "eject": "react-scripts eject"
