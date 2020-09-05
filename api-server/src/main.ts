@@ -1,10 +1,10 @@
-const mongoose = require('mongoose');
 require('dotenv').config();
-const app = require('./app');
-const socketIO = require('./utils/socket');
+import mongoose from 'mongoose';
+import app from './app';
+import socketIO from './utils/socket';
 
 // Global error handling for uncaught exception (bugs) - Sychronous
-process.on('uncaughtException', err => {
+process.on('uncaughtException', (err) => {
   console.log('UNHANDLED EXCEPTION 💥 SHUTTING DOWN...');
   console.log(err.name, err.message);
 
@@ -29,7 +29,7 @@ const server = app.listen(port, () => {
 });
 
 // Global promise rejection handler
-process.on('unhandledRejection', err => {
+process.on('unhandledRejection', (err: Error) => {
   console.log(err.name, err.message);
   console.log('UNHANDLED REJECTION 💥 SHUTTING DOWN...');
 

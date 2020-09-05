@@ -1,17 +1,18 @@
-const AppError = require('../utils/appError');
+import AppError from '../utils/appError';
+import { Request, Response, NextFunction } from 'express';
 
-const handleCastErrorDB = err => {
+const handleCastErrorDB = (err: AppError) => {
   const message = `Invalid ${err.path}: ${err.value}`;
   return new AppError(message, 400);
 };
 
-const handleValidationErrorDB = err => {
-  const errors = Object.values(err.errors).map(el => el.message);
+const handleValidationErrorDB = (err: AppError) => {
+  const errors = Object.values(err.errors).map((el) => el.message);
   const message = `Invalid input data. ${errors.join('. ')}`;
   return new AppError(message, 400);
 };
 
-const sendErrForDev = (err, res) => {
+const sendErrForDev = (err: AppError, res: Response) => {
   res.status(err.statusCode).json({
     status: err.status,
     message: err.message,
@@ -20,7 +21,7 @@ const sendErrForDev = (err, res) => {
   });
 };
 
-const sendErrProduction = (err, res) => {
+const sendErrProduction = (err: AppError, res: Response) => {
   // Operational, trusted error, error produced by our code
   if (err.isOperational) {
     res.status(err.statusCode).json({
@@ -39,7 +40,12 @@ const sendErrProduction = (err, res) => {
 };
 
 // GLOBAL ERROR HANDLING MIDDLEWARE
-module.exports = (err, req, res, next) => {
+export default (
+  err: AppError,
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   err.statusCode = err.statusCode || 500;
   err.status = err.status || 'error';
 

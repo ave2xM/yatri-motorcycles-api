@@ -1,7 +1,7 @@
-const express = require('express');
+import express, { Router } from 'express';
 const batteryController = require('../controllers/batteryController');
 
-const router = express.Router();
+const router: Router = express.Router();
 
 router
   .route('/')
@@ -14,4 +14,4 @@ router
   .route('/reserve/:id')
   .post(batteryController.checkAvaibility, batteryController.reserveBattery);
 
-module.exports = router;
+export default router;

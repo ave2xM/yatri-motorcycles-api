@@ -18,6 +18,16 @@ $ npm run dev
 $ yarn dev
 ```
 
+### Build project
+
+```
+# Using npm
+$ npm run build
+
+# Using yarn
+$ yarn build
+```
+
 ### Start api server in production mode
 
 ```bash
