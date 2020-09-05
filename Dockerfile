@@ -12,5 +12,8 @@ RUN npm install --prefix web-server
 # Build client application
 RUN npm run build --prefix web-server
 
+# Build server application
+RUN npm run build --prefix api-server
+
 # Default Command
 CMD cd api-server && npm run start
