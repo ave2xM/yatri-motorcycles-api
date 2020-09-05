@@ -9,5 +9,5 @@ export function reserveBattery(id) {
 }
 
 export function resetBatteryAvaibility() {
-  return axios.post('/api/v1/batteries/all');
+  return axios.post('/api/v1/batteries/reset');
 }

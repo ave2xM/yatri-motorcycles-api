@@ -8,7 +8,7 @@ router
   .get(batteryController.getAllBatteries)
   .post(batteryController.addBattery);
 
-router.route('/all').post(batteryController.resetAvaibility);
+router.route('/reset').post(batteryController.resetAvaibility);
 
 router
   .route('/reserve/:id')
