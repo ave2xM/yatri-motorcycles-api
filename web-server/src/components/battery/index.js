@@ -16,21 +16,18 @@ export default () => {
     setBatteries(newBatteryList);
   }
 
-  const pollBatteryStatus = useCallback(
-    function () {
-      socket.on('BATTERY_RESERVE_SUCCESS', data => {
-        if (ref.current[data._id]) {
-          let newBatteryList = { ...ref.current };
-          newBatteryList[data._id] = {
-            ...newBatteryList[data._id],
-            available: false,
-          };
-          updateBatteryList(newBatteryList);
-        }
-      });
-    },
-    [socket]
-  );
+  const pollBatteryStatus = useCallback(function () {
+    socket.on('BATTERY_RESERVE_SUCCESS', data => {
+      if (ref.current[data._id]) {
+        let newBatteryList = { ...ref.current };
+        newBatteryList[data._id] = {
+          ...newBatteryList[data._id],
+          available: false,
+        };
+        updateBatteryList(newBatteryList);
+      }
+    });
+  }, []);
 
   useEffect(() => {
     getAllBatteries().then(({ data }) => {
@@ -42,7 +39,7 @@ export default () => {
     return () => {
       socket.removeAllListeners('BATTERY_RESERVE_SUCCESS');
     };
-  }, [pollBatteryStatus, socket]);
+  }, [pollBatteryStatus]);
 
   if (!batteries) return <h3>Loading...</h3>;
 
