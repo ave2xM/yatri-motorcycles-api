@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
 import { reserveBattery } from '../../services/batteryService';
+import showAlert from '../../utils/notifier';
 
-export default ({ battery, handleNotification }) => {
+export default ({ battery }) => {
   const [submitting, setSubmitting] = useState(false);
+
+  function handleNotification({ status, message }) {
+    showAlert(status, message);
+  }
 
   function handleBatteryReserve(id) {
     setSubmitting(true);
