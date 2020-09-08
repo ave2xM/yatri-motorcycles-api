@@ -18,10 +18,10 @@
 ```bash
 
 # Clone with SSH
-$ git@github.com:manjillama/yatri-battery-api.git
+$ git@github.com:manjillama/yatri-motorcycles-api.git
 
 # Or with HTTPS
-$ git clone https://github.com/manjillama/yatri-battery-api.git
+$ https://github.com/manjillama/yatri-motorcycles-api.git
 ```
 
 ### Installation
