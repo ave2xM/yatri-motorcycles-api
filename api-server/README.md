@@ -37,8 +37,11 @@ $ npm run start
 # Using yarn
 $ yarn start
 ```
-
 Open http://localhost:5000 to view it in the browser.
+
+### Configurations
+
+Update the **.env** file and add custom configuration.
 
 ## Documentation (For development)
 
